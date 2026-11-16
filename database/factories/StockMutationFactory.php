@@ -13,11 +13,11 @@ class StockMutationFactory extends Factory
     public function definition(): array
     {
         return [
-            'product_id' => Product::factory(),
-            'user_id' => User::factory(),
-            'type' => 'in',
-            'quantity' => fake('id_ID')->numberBetween(0, 10),
-            'notes' => 'Penerimaan barang dari pemasok.',
+            'product_id'    => Product::factory(),
+            'user_id'       => User::factory(),
+            'type'          => 'in',
+            'quantity'      => fake('id_ID')->numberBetween(0, 10),
+            'notes'         => 'Penerimaan barang dari pemasok.',
         ];
     }
 }
