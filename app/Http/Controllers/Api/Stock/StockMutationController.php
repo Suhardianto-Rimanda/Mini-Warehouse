@@ -15,11 +15,11 @@ class StockMutationController extends Controller
 {
     public function index()
     {
-        return new StockMutationCollection(
+        return response()->json(new StockMutationCollection(
             StockMutation::with(['product.category', 'user'])
                 ->latest('created_at')
                 ->simplePaginate(15)
-        );
+        ));
     }
 
     public function store(Request $request)
@@ -47,16 +47,16 @@ class StockMutationController extends Controller
             return StockMutation::create($data);
         }, 3);
 
-        return new StockMutationResource(
+        return response()->json(new StockMutationResource(
             $stockMutation->load(['product.category', 'user'])
-        );
+        ), 201);
     }
 
     public function show(StockMutation $stockMutation)
     {
-        return new StockMutationResource(
+        return response()->json(new StockMutationResource(
             $stockMutation->load(['product.category', 'user'])
-        );
+        ));
     }
 
     public function update(Request $request, StockMutation $stockMutation)
@@ -98,9 +98,9 @@ class StockMutationController extends Controller
             return $stockMutation;
         }, 3);
 
-        return new StockMutationResource(
+        return response()->json(new StockMutationResource(
             $stockMutation->load(['product.category', 'user'])
-        );
+        ));
     }
 
     public function destroy(StockMutation $stockMutation)

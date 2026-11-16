@@ -64,7 +64,7 @@ class ProductController extends Controller
             return $product;
         }, 3);
 
-        return new ProductResource($product->load('category'));
+        return response()->json(new ProductResource($product->load('category')));
     }
 
     public function destroy(Product $product)

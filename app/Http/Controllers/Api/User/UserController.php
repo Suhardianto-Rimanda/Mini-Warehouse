@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return new UserCollection(User::all());
+        return response()->json(new UserCollection(User::all()));
     }
 
     public function store(Request $request)
@@ -25,12 +25,12 @@ class UserController extends Controller
             'password'  => ['required', 'string', 'min:8', 'max:72', 'confirmed'],
         ]);
 
-        return new UserResource(User::create($data));
+        return response()->json(new UserResource(User::create($data)), 201);
     }
 
     public function show(User $user)
     {
-        return new UserResource($user);
+        return response()->json(new UserResource($user));
     }
 
     public function update(Request $request, User $user)

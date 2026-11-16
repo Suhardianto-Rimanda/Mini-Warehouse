@@ -18,7 +18,9 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake('id_ID')->randomElement(
+                array_keys(ProductFactory::CATALOG)
+            ),
         ];
     }
 }

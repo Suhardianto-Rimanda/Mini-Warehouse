@@ -13,7 +13,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return new CategoryCollection(Category::all());
+        return response()->json(new CategoryCollection(Category::all()));
     }
 
     public function store(Request $request)
@@ -22,12 +22,12 @@ class CategoryController extends Controller
             'name' => ['required', 'string', 'max:255'],
         ]);
 
-        return new CategoryResource(Category::create($data));
+        return response()->json(new CategoryResource(Category::create($data)), 201);
     }
 
     public function show(Category $category)
     {
-        return new CategoryResource($category);
+        return response()->json(new CategoryResource($category));
     }
 
     public function update(Request $request, Category $category)
@@ -43,7 +43,7 @@ class CategoryController extends Controller
             return $category;
         }, 3);
 
-        return new CategoryResource($category);
+        return response()->json(new CategoryResource($category));
     }
 
     public function destroy(Category $category)
