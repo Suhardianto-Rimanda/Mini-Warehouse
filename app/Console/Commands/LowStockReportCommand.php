@@ -16,7 +16,7 @@ class LowStockReportCommand extends Command
     {
         $path = 'reports/low-stock-'.Str::uuid().'.csv';
 
-        LowStockReportJob::dispatch(10, $path);
+        LowStockReportJob::dispatchSync(10, $path);
 
         $this->info('Report queued.');
         $this->line("Output: storage/app/private/{$path}");
