@@ -54,13 +54,13 @@ class CategoryController extends Controller
             abort_if(
                 $category->products()->exists(),
                 409,
-                'Kategori masih memiliki produk.'
+                'Category still has products.'
             );
 
             $category->delete();
 
             return response()->json([
-                'message' => 'Kategori berhasil dihapus.',
+                'message' => 'Category successfully deleted.',
             ]);
         }, 3);
     }

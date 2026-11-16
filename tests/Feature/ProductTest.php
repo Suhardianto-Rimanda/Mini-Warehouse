@@ -18,7 +18,6 @@ class ProductTest extends TestCase
     {
         parent::setUp();
 
-        // Avoid requiring local OAuth keys for Passport::actingAs.
         $this->mock(ResourceServer::class);
         Passport::actingAs(User::factory()->create());
     }

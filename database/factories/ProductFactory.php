@@ -46,7 +46,7 @@ class ProductFactory extends Factory
 
         return [
             'category_id' => Category::factory()->state(['name' => $category]),
-            'sku' => 'BRG-'.Str::uuid(),
+            'sku' => 'PRD-Factory-'.Str::uuid(),
             'name' => $product['name'],
             'unit' => $product['unit'],
             'stock' => 0,

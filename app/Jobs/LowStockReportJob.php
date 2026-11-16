@@ -58,6 +58,10 @@ class LowStockReportJob implements ShouldQueue
                         $row[$index] = "'".$value;
                     }
                 }
+
+                if (fputcsv($stream, $row, ',', '"', '') === false) {
+                    throw new RuntimeException('Cannot write CSV row.');
+                }
             }
 
             if (!rewind($stream)) {

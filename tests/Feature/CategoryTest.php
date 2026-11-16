@@ -17,7 +17,6 @@ class CategoryTest extends TestCase
     {
         parent::setUp();
 
-        // Avoid requiring local OAuth keys for Passport::actingAs.
         $this->mock(ResourceServer::class);
         Passport::actingAs(User::factory()->create());
     }
@@ -76,7 +75,7 @@ class CategoryTest extends TestCase
 
         $this->deleteJson('/api/categories/'.$category->id)
             ->assertOk()
-            ->assertJsonPath('message', 'Kategori berhasil dihapus.');
+            ->assertJsonPath('message', 'Category successfully deleted.');
 
         $this->assertDatabaseMissing('categories', ['id' => $category->id]);
     }

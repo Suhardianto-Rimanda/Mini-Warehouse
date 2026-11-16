@@ -17,7 +17,6 @@ class UserTest extends TestCase
     {
         parent::setUp();
 
-        // Avoid requiring local OAuth keys for Passport::actingAs.
         $this->mock(ResourceServer::class);
         Passport::actingAs(User::factory()->create());
     }
@@ -39,26 +38,26 @@ class UserTest extends TestCase
     public function test_authenticated_user_can_create_user(): void
     {
         $response = $this->postJson('/api/users', [
-            'name' => 'Budi Santoso',
-            'email' => 'budi@example.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'name' => 'Suhardi Testing',
+            'email' => 'suhardi@testing.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
         ]);
 
         $response->assertCreated()
-            ->assertJsonPath('name', 'Budi Santoso')
-            ->assertJsonPath('email', 'budi@example.com')
+            ->assertJsonPath('name', 'Suhardi Testing')
+            ->assertJsonPath('email', 'suhardi@testing.com')
             ->assertJsonMissingPath('password');
 
         $this->assertDatabaseHas('users', [
             'id' => $response->json('id'),
-            'name' => 'Budi Santoso',
-            'email' => 'budi@example.com',
+            'name' => 'Suhardi Testing',
+            'email' => 'suhardi@testing.com',
         ]);
 
         $user = User::findOrFail($response->json('id'));
 
-        $this->assertTrue(Hash::check('password123', $user->password));
+        $this->assertTrue(Hash::check('password', $user->password));
     }
 
     public function test_authenticated_user_can_show_user(): void
@@ -79,18 +78,18 @@ class UserTest extends TestCase
         $password = $user->password;
 
         $this->putJson('/api/users/'.$user->id, [
-            'name' => 'Budi Diperbarui',
-            'email' => 'budi.updated@example.com',
+            'name' => 'Suhardi Diperbarui',
+            'email' => 'suhardi.updated@example.com',
         ])
             ->assertOk()
             ->assertJsonPath('data.id', $user->id)
-            ->assertJsonPath('data.name', 'Budi Diperbarui')
-            ->assertJsonPath('data.email', 'budi.updated@example.com');
+            ->assertJsonPath('data.name', 'Suhardi Diperbarui')
+            ->assertJsonPath('data.email', 'suhardi.updated@example.com');
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
-            'name' => 'Budi Diperbarui',
-            'email' => 'budi.updated@example.com',
+            'name' => 'Suhardi Diperbarui',
+            'email' => 'suhardi.updated@example.com',
             'email_verified_at' => null,
             'password' => $password,
         ]);

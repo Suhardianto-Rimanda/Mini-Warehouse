@@ -15,7 +15,6 @@ class MeTest extends TestCase
     public function test_can_get_the_authenticated_user(): void
     {
         $user = User::factory()->create();
-        // Avoid requiring local OAuth keys for Passport::actingAs.
         $this->mock(ResourceServer::class);
         Passport::actingAs($user);
 

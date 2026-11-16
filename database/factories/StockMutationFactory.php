@@ -16,7 +16,7 @@ class StockMutationFactory extends Factory
             'product_id' => Product::factory(),
             'user_id' => User::factory(),
             'type' => 'in',
-            'quantity' => fake('id_ID')->numberBetween(20, 60),
+            'quantity' => fake('id_ID')->numberBetween(0, 10),
             'notes' => 'Penerimaan barang dari pemasok.',
         ];
     }

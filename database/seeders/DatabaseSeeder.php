@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
 
                     for ($day = 0; $day < 5; $day++) {
                         $date = $firstDay->copy()->addDays($day);
-                        $incoming = $faker->numberBetween(20, 60);
+                        $incoming = $faker->numberBetween(0, 10);
                         $outgoing = $faker->numberBetween(1, $incoming);
                         $receivedAt = $date->copy()->setTime(8, 0);
                         $issuedAt = $date->copy()->setTime(15, 0);
