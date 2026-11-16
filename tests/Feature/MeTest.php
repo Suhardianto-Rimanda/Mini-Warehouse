@@ -2,19 +2,28 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Passport\Passport;
+use League\OAuth2\Server\ResourceServer;
 use Tests\TestCase;
 
 class MeTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
+    use RefreshDatabase;
 
-        $response->assertStatus(200);
+    public function test_can_get_the_authenticated_user(): void
+    {
+        $user = User::factory()->create();
+        // Avoid requiring local OAuth keys for Passport::actingAs.
+        $this->mock(ResourceServer::class);
+        Passport::actingAs($user);
+
+        $this->getJson('/api/auth/me')
+            ->assertOk()
+            ->assertJsonPath('user.id', $user->id)
+            ->assertJsonPath('user.name', $user->name)
+            ->assertJsonPath('user.email', $user->email)
+            ->assertJsonMissingPath('user.password');
     }
 }
